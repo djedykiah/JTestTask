@@ -1,24 +1,19 @@
+//Core
+import firebase from 'firebase/firebase.js';
+
 // Config
-import { API_URL } from '../../../config';
-
-// Instruments
-import { createHeaders } from '../../../helpers';
-
-// Transform
-import transform from '../../../transform';
+import { user } from 'config';
 
 export class Auth {
 
-    async signIn (credentials) {
-        const requestData = transform.auth.transformSignInOutput(credentials);
-        const response = await fetch(`${API_URL}/sign-in`, createHeaders('POST', requestData));
-        const data = await response.json();
+    signIn () {
+        firebase.auth().signInWithEmailAndPassword(user.EMAIL, user.PASSWORD).catch((error) => {
+            const errorCode = error.code;
 
-        if (response.status !== 200) {
-            throw new Error(response.message);
-        }
+            const errorMessage = error.message;
 
-        return transform.auth.transformSignInInput(data);
+            throw new Error('code', errorCode, 'message', errorMessage);
+        });
     }
 
 }

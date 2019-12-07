@@ -27,6 +27,10 @@ export const initialize = () => ({
     type: types.INITIALIZE,
 });
 
+export const authenticate = () => ({
+    type: types.AUTHENTICATE,
+});
+
 export const setErrorMessage = (message) => ({
     type:    types.SET_ERROR_MESSAGE,
     payload: message,

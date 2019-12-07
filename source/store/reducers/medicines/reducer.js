@@ -5,13 +5,13 @@ import { Map } from 'immutable';
 import { types } from './types';
 
 const initialState = Map({
-    isAuthenticated: false,
-    isFetching:      false,
-    isInitialized:   false,
-    errorMessage:    '',
+    isFetching:    false,
+    isInitialized: false,
+    items:         [],
+    errorMessage:  '',
 });
 
-export const uiReducer = (state = initialState, action) => {
+export const medicinesReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.START_FETCHING:
             return state.set('isFetching', true);
@@ -19,8 +19,8 @@ export const uiReducer = (state = initialState, action) => {
             return state.set('isFetching', false);
         case types.INITIALIZE:
             return state.set('isInitialized', true);
-        case types.AUTHENTICATE:
-            return state.set('isAuthenticated', true);
+        case types.SET_MEDICINES:
+            return state.set('items', action.payload);
         case types.SET_ERROR_MESSAGE:
             return state.set('errorMessage', action.payload);
         default:

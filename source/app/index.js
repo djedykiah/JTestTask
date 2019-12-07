@@ -4,7 +4,6 @@ import { hot } from 'react-hot-loader';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
 
 // Route
 import { Private, Public } from '../navigation';
@@ -14,23 +13,13 @@ import { initializeAsync } from '../store/reducers/ui/actions';
 
 // Components
 import { Loading } from '../components';
+import ModalContainer from '../components/Modals/ModalContainer.js';
 
 // Styles
-const GlobalStylePublic = createGlobalStyle`
-    html {
-        background-color: #fff;
-    }
-`;
-const GlobalStylePrivate = createGlobalStyle`
-    html {
-        background-color: #fff;
-    }
-`;
+import 'antd/dist/antd.css';
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.get('isAuthenticated'),
-    isInitialized:   state.ui.get('isInitialized'),
-    userLanguage:    state.ui.get('userLanguage'),
+    isInitialized: state.ui.get('isInitialized'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -53,9 +42,8 @@ class App extends Component {
 
     render () {
         const {
-            userLanguage,
             isAuthenticated,
-            isInitialized
+            isInitialized,
         } = this.props;
 
         if (!isInitialized) {
@@ -63,17 +51,10 @@ class App extends Component {
         }
 
         return (
-            isAuthenticated ?
-                <Fragment>
-                    <GlobalStylePrivate />
-                    <Private userLanguage = { userLanguage } />
-                </Fragment> :
-                <Fragment>
-                    <GlobalStylePublic />
-                    <Public
-                        userLanguage = { userLanguage }
-                    />
-                </Fragment>
+            <Fragment>
+                <ModalContainer />
+                <Public />
+            </Fragment>
         );
     }
 }
