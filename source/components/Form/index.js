@@ -14,7 +14,18 @@ import { hideModal } from 'store/reducers/modals/actions';
 //Instruments
 import { api } from 'API';
 
-const required = (value) => value ? undefined : "Required";
+//Validators
+import {
+    codeValidator,
+    nameValidator,
+    priceValidator,
+    shelLifeValidator,
+    mainValidator,
+    required
+} from 'helpers';
+
+const composeValidators = (...validators) => (value) =>
+    validators.reduce((error, validator) => error || validator(value), undefined);
 
 const Form = (props) => {
     const dispatch = useDispatch();
@@ -54,8 +65,8 @@ const Form = (props) => {
                     <Field
                         component = { Input }
                         name = 'code'
-                        type = 'text'
-                        validate = { required }
+                        type = 'number'
+                        validate = { composeValidators(required, codeValidator) }
                     />
                 </div>
                 <div className = 'input-group'>
@@ -64,7 +75,7 @@ const Form = (props) => {
                         component = { Input }
                         name = 'name'
                         type = 'text'
-                        validate = { required }
+                        validate = { composeValidators(required, nameValidator) }
                     />
                 </div>
                 <div className = 'input-group'>
@@ -74,8 +85,8 @@ const Form = (props) => {
                     <Field
                         component = { Input }
                         name = 'price'
-                        type = 'text'
-                        validate = { required }
+                        type = 'number'
+                        validate = { composeValidators(required, priceValidator) }
                     />
                 </div>
                 <div className = 'input-group'>
@@ -83,8 +94,8 @@ const Form = (props) => {
                     <Field
                         component = { Input }
                         name = 'shelfLife'
-                        type = 'text'
-                        validate = { required }
+                        type = 'number'
+                        validate = { composeValidators(required, shelLifeValidator) }
                     />
                 </div>
             </Wizard.Page>
@@ -97,7 +108,7 @@ const Form = (props) => {
                         component = { Textarea }
                         name = 'compositionAndFormOfRelease'
                         type = 'text'
-                        validate = { required }
+                        validate = { composeValidators(required, mainValidator) }
                     />
                 </div>
                 <div className = 'input-group'>
@@ -108,7 +119,7 @@ const Form = (props) => {
                         component = { Textarea }
                         name = 'indication'
                         type = 'text'
-                        validate = { required }
+                        validate = { composeValidators(required, mainValidator) }
                     />
                 </div>
                 <div className = 'input-group'>
@@ -119,7 +130,7 @@ const Form = (props) => {
                         component = { Textarea }
                         name = 'сontraindications'
                         type = 'text'
-                        validate = { required }
+                        validate = { composeValidators(required, mainValidator) }
                     />
                 </div>
             </Wizard.Page>

@@ -19,7 +19,7 @@ const Home = () => {
 
     return (
         <Container>
-            <Typography as = 'h1' size = 'h1'>Medicine list</Typography>
+            <Typography as = 'h1' size = 'h1'>Medicines list</Typography>
             <MedicineList />
             <FixedButton>
                 <Button

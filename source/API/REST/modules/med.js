@@ -27,8 +27,6 @@ export class Med {
     };
 
     editMedicine = async (data) => {
-
-        console.log('editData', data);
         const editedItem = await db.doc(data.id).set(data, { merge: true });
 
         return editedItem;
