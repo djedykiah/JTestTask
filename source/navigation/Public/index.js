@@ -6,7 +6,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { routes } from './routes';
 
 // Pages
-import { PublicHome } from '../../pages'
+import { PublicHome } from 'pages';
 
 const Public = () => {
     return (

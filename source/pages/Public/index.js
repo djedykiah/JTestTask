@@ -1,5 +1,5 @@
 import PublicHome from './Home';
 
 export {
-    PublicHome,
+    PublicHome
 };

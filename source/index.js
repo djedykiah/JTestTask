@@ -7,7 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
 //Components
-import { Loading } from 'components';
+import { Loading, ErrorBoundry } from 'components';
 
 // Intro
 import App from './app';
@@ -128,7 +128,9 @@ render(
             <Fragment>
                 <GlobalStyle />
                 <PersistGate loading = { <Loading /> } persistor = { persistor }>
-                    <App />
+                    <ErrorBoundry>
+                        <App />
+                    </ErrorBoundry>
                 </PersistGate>
             </Fragment>
         </ConnectedRouter>
