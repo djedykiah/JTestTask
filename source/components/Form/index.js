@@ -19,7 +19,7 @@ import {
     codeValidator,
     nameValidator,
     priceValidator,
-    shelLifeValidator,
+    shelfLifeValidator,
     mainValidator,
     required
 } from 'helpers';
@@ -95,7 +95,7 @@ const Form = (props) => {
                         component = { Input }
                         name = 'shelfLife'
                         type = 'number'
-                        validate = { composeValidators(required, shelLifeValidator) }
+                        validate = { composeValidators(required, shelfLifeValidator) }
                     />
                 </div>
             </Wizard.Page>

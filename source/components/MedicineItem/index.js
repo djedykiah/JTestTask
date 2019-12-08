@@ -16,6 +16,7 @@ import { deleteMedicine, editMedicine } from 'store/reducers/medicines/actions';
 
 //Instruments
 import { api } from 'API';
+import { media } from 'helpers';
 
 function MedicineItemContainer ({ className, ...data }) {
     const dispatch = useDispatch();
@@ -68,20 +69,54 @@ const MedicineItem = styled(MedicineItemContainer)`
         margin-bottom: 25px;
     }
 
+    @media ${media.xs} {
+        padding: 15px 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .item-info {
         display: flex;
         flex: 1;
+        width: 100%;
+
+        @media ${media.xs} {
+            flex-wrap: wrap
+        }
 
         &-item {
             min-width: 20%;
+            margin-right: 10px;
+            p {
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            @media ${media.xs} {
+                min-width: 30%;
+
+                &:nth-child(2) {
+                    order: 1;
+                    min-width: 100%
+                }
+            } 
         }
     }
 
     .item-actions {
         margin-left: auto;
+        white-space: nowrap;
 
         button {
             margin-left: 15px;
+        }
+
+        @media ${media.xs} {
+            margin-left: 0;
+            margin-top: 20px;
+            button {
+                margin-left: 0;
+                margin-right: 5px;
+            }
         }
     }
 `;
