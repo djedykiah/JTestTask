@@ -8,17 +8,26 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 //Actions
-import { showModal } from '../../store/reducers/modals/actions';
+import { showModal } from 'store/reducers/modals/actions';
+import { deleteMedicine, editMedicine } from 'store/reducers/medicines/actions';
 
-function MedicineItemContainer ({ className, code, name, price }) {
+//Instruments
+import { api } from 'API';
+
+function MedicineItemContainer ({ className, ...data }) {
     const dispatch = useDispatch();
 
+    const { id, code, name, price } = data;
+
     const _handleEditClick = () => {
+        dispatch(editMedicine(data));
         dispatch(showModal({ type: 'MODAL_EDIT' }));
     };
 
     const _handleDeleteClick = () => {
-        console.log('delete');
+        api.med.deleteMedicine(id).then(() => {
+            dispatch(deleteMedicine(id));
+        });
     };
 
     return (

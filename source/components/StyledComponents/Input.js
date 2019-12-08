@@ -3,12 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-//Media
-import Icon, { iconsNames } from 'components/Icon';
-
-//Styles
-import './index.scss';
-
 const Input = (props) => {
 
     const {
@@ -39,12 +33,10 @@ const Input = (props) => {
             className = {
                 classNames(`field ${containerClassName}`,
                     {
-                        'field--white':    whiteMode,
-                        'field--withicon': icon,
+                        'field--white': whiteMode,
                     })
             }>
             <input { ...inputAttr } />
-            {icon}
             {
                 isError &&
                 <span className = 'field__error-msg'>{error}</span>

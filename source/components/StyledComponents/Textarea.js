@@ -19,7 +19,6 @@ const Textarea = ({
             className = { classNames(`field field--textarea ${containerClassName}`, {
                 'field--white': whiteMode,
             }) }>
-            <div className = 'field__label'>{placeholder}</div>
             <ReactTextarea
                 { ...inputAttr }
             />

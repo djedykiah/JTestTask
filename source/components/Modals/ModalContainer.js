@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Modal } from 'antd';
 
 //Components
-
+import Form from 'components/Form/index.js';
 //Actions
 import { hideModal } from 'store/reducers/modals/actions';
 
@@ -15,10 +15,10 @@ class ModalContainer extends Component {
       switch (type) {
 
           case 'MODAL_ADD': {
-              return <div>add</div>;
+              return <Form type = 'add' />;
           }
           case 'MODAL_EDIT': {
-              return <div>edit</div>;
+              return <Form type = 'edit' />;
           }
           default:
               return null;
