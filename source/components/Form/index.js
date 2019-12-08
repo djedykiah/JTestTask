@@ -1,132 +1,130 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 //Core
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Field } from "react-final-form";
-import Wizard from "./Wizard";
 
 //Components
-import Input from 'components/StyledComponents/Input.js';
-import Textarea from 'components/StyledComponents/Textarea.js';
+import { Input, Textarea, Typography } from 'components';
+import Wizard from "./Wizard";
 
 //Actions
-import { addMedicine, editMedicine, updateMedicine } from 'store/reducers/medicines/actions';
+import { addMedicine, updateMedicine } from 'store/reducers/medicines/actions';
+import { hideModal } from 'store/reducers/modals/actions';
 
 //Instruments
 import { api } from 'API';
 
-const required = value => (value ? undefined : "Required");
+const required = (value) => value ? undefined : "Required";
 
 const Form = (props) => {
     const dispatch = useDispatch();
     const editItem = useSelector((state) => state.medicines.get('editItem'));
 
     const _addMedicine = (values) => {
-        api.med.addMedicine(values).then(item =>  {
+        api.med.addMedicine(values).then((item) => {
             values.id = item.id;
-            return values
+
+            return values;
         }).then((newItem) => {
-            return dispatch(addMedicine(newItem))
-        })
-    }
+            dispatch(addMedicine(newItem));
+        }).then(dispatch(hideModal()));
+    };
 
     const _editMedicine = (values) => {
-        api.med.editMedicine(values).then(item =>  {
-            dispatch(updateMedicine(values))
-        })
-    }
+        api.med.editMedicine(values).then(() => {
+            dispatch(updateMedicine(values));
+        }).then(dispatch(hideModal()));
+    };
 
     const onSubmit = (values) => {
-        if(props.type === 'add') {
-            _addMedicine(values)
+        if (props.type === 'add') {
+            _addMedicine(values);
         } else {
-            _editMedicine(values)
+            _editMedicine(values);
         }
-    }
+    };
+
     return (
-    
         <Wizard
-            initialValues = {props.type === 'edit' ? {...editItem} : null}
-            onSubmit = { onSubmit }
-        >
-            <Wizard.Page>
-                <div>
-                    <label>Codee</label>
+            initialValues = { props.type === 'edit' ? { ...editItem } : null }
+            onSubmit = { onSubmit }>
+            <Wizard.Page type = { props.type }>
+                <div className = 'input-group'>
+                    <Typography as = 'label' color = 'var(--primaryTextColorLight)' size = 'plain' >Code</Typography>
                     <Field
-                        name = "code"
                         component = { Input }
-                        type = "text"
-                        placeholder = "Code"
+                        name = 'code'
+                        type = 'text'
                         validate = { required }
                     />
                 </div>
-                <div>
-                    <label>Name</label>
+                <div className = 'input-group'>
+                    <Typography as = 'label' color = 'var(--primaryTextColorLight)' size = 'plain' >Name</Typography>
                     <Field
-                        name = "name"
                         component = { Input }
-                        type = "text"
-                        placeholder = "Name"
-                        validate = {required}
+                        name = 'name'
+                        type = 'text'
+                        validate = { required }
                     />
                 </div>
-                <div>
-                    <label>price</label>
+                <div className = 'input-group'>
+                    <Typography as = 'label' color = 'var(--primaryTextColorLight)' size = 'plain' >
+                        Price
+                    </Typography>
                     <Field
-                        name="price"
-                        component={Input}
-                        type="text"
-                        placeholder="price"
-                        validate = {required}
+                        component = { Input }
+                        name = 'price'
+                        type = 'text'
+                        validate = { required }
                     />
                 </div>
-                <div>
-                    <label>shelfLife</label>
+                <div className = 'input-group'>
+                    <Typography as = 'label' color = 'var(--primaryTextColorLight)' size = 'plain' >ShelfLife</Typography>
                     <Field
-                        name="shelfLife"
-                        component={Input}
-                        type="text"
-                        placeholder="shelfLife"
-                        validate = {required}
+                        component = { Input }
+                        name = 'shelfLife'
+                        type = 'text'
+                        validate = { required }
                     />
                 </div>
-                </Wizard.Page>
-            
-                <Wizard.Page>
-                <div>
-                    <label>compositionAndFormOfRelease</label>
+            </Wizard.Page>
+            <Wizard.Page type = { props.type }>
+                <div className = 'input-group'>
+                    <Typography as = 'label' color = 'var(--primaryTextColorLight)' size = 'plain' >
+                        CompositionAndFormOfRelease
+                    </Typography>
                     <Field
-                        name="compositionAndFormOfRelease"
-                        component={Textarea}
-                        type="text"
-                        placeholder="compositionAndFormOfRelease:"
-                        validate={required}
+                        component = { Textarea }
+                        name = 'compositionAndFormOfRelease'
+                        type = 'text'
+                        validate = { required }
                     />
                 </div>
-                <div>
-                    <label>indication:</label>
+                <div className = 'input-group'>
+                    <Typography as = 'label' color = 'var(--primaryTextColorLight)' size = 'plain' >
+                        Indication
+                    </Typography>
                     <Field
-                        name="indication:"
-                        component={Textarea}
-                        type="text"
-                        placeholder="indication:"
-                        validate={required}
+                        component = { Textarea }
+                        name = 'indication'
+                        type = 'text'
+                        validate = { required }
                     />
                 </div>
-                <div>
-                    <label>сontraindications:</label>
+                <div className = 'input-group'>
+                    <Typography as = 'label' color = 'var(--primaryTextColorLight)' size = 'plain' >
+                        Contraindications
+                    </Typography>
                     <Field
-                        name="сontraindications:"
-                        component={Textarea}
-                        type="text"
-                        placeholder="сontraindications:"
+                        component = { Textarea }
+                        name = 'сontraindications'
+                        type = 'text'
+                        validate = { required }
                     />
                 </div>
             </Wizard.Page>
         </Wizard>
-    )
-}
-
-   
+    );
+};
 
 export default Form;

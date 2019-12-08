@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 //Components
-import { Heading } from 'components';
+import { Typography } from 'components';
 
 class ErrorBoundry extends Component {
     state = {
@@ -20,9 +20,9 @@ class ErrorBoundry extends Component {
         if (this.state.hasError) {
             return (
                 <div className = { this.props.className }>
-                    <Heading color = 'var(--errorColor)' size = '4'>
+                    <Typography color = 'var(--errorColor)' size = 'h3'>
                         Упс!!! Щось пішло не так!!
-                    </Heading>
+                    </Typography>
                 </div>
             );
         }

@@ -1,15 +1,15 @@
 // Core
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Button } from 'antd';
+import { Button, Icon } from 'antd';
 
 //Components
-import MedicineList from 'components/MedicineList/index.js';
+import { MedicineList, Container, Typography, FixedButton } from 'components';
 
 //Actions
 import { showModal } from 'store/reducers/modals/actions';
 
-const Home = (props) => {
+const Home = () => {
     const dispatch = useDispatch();
 
     const _handleAddClick = () => {
@@ -18,11 +18,19 @@ const Home = (props) => {
     };
 
     return (
-        <>
-            <h1>Medicine list</h1>
+        <Container>
+            <Typography as = 'h1' size = 'h1'>Medicine list</Typography>
             <MedicineList />
-            <Button type = 'primary' onClick = { _handleAddClick }>add</Button>
-        </>
+            <FixedButton>
+                <Button
+                    shape = 'circle'
+                    size = 'large'
+                    type = 'primary'
+                    onClick = { _handleAddClick }>
+                    <Icon type = 'plus' />
+                </Button>
+            </FixedButton>
+        </Container>
     );
 };
 

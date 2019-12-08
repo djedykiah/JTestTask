@@ -51,21 +51,19 @@ const GlobalStyle = createGlobalStyle`
         --BlueMarguerite: #6F64CA;
         --BlueViolet: #4D40BC;
         
-        /* RGBA */
-        --rgbaColor1: rgba(0, 0, 0, 0.1);
-        --Boulder: rgba(125, 125, 125, 0.5);
-
-        /* Gradients */
-        --gradient1: linear-gradient(var(--paletteColor1), var(--paletteColor1));
-        --navGradient: linear-gradient(132deg, var(--Deluge), var(--Victoria)); 
-        
         /* Shadows */
         --Shadow: 0px 8px 32px rgba(62, 62, 89, 0.12);
 
         /* Typography */
         --primaryFont: 'Roboto', sans-serif;
-        --fontSizePlain: 15px;
-        --lineHeightPlain: 2.1;
+        --fontSizeH1: 50px;
+        --lineHeightH1: 1.4;
+        --fontSizeH2: 35px;
+        --lineHeightH2: 1.4;
+        --fontSizeH2: 25px;
+        --lineHeightH3: 1.4;
+        --fontSizeH3: 15px;
+        --lineHeightH3: 2.1;
         --fontSizeCaption: 11px; 
         --lineHeightCaption: 1.6; 
         --fontSizeInput: 13px;
@@ -115,17 +113,6 @@ const GlobalStyle = createGlobalStyle`
         &:last-child {
             margin-bottom: 0;
         }
-    }
-
-    .l-wrapper {
-        margin: 0 auto;
-        max-width: 1190px;
-        padding: 0 15px
-    } 
-
-    .d-flex {
-        display: flex;
-        justify-content: space-between;
     }
 
     a {

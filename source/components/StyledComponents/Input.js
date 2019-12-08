@@ -1,19 +1,20 @@
 //Core
 import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-const Input = (props) => {
+//Components
+import { Typography } from 'components';
+
+//Styles
+import styled from 'styled-components';
+
+const InputContainer = (props) => {
 
     const {
         input,
         placeholder,
         type,
+        className,
         disabled,
-        containerClassName,
-        inputClassName,
-        icon,
-        whiteMode,
         meta: { touched, error },
     } = props;
 
@@ -21,40 +22,39 @@ const Input = (props) => {
         ...input,
         placeholder,
         disabled,
-        type:      input.type || type,
-        className: `field__body ${inputClassName}`,
+        type: input.type || type,
     };
 
     const isError = touched && error;
-    const isValid = touched && !error;
 
     return (
         <label
-            className = {
-                classNames(`field ${containerClassName}`,
-                    {
-                        'field--white': whiteMode,
-                    })
-            }>
-            <input { ...inputAttr } />
+            className = { className }>
+            <input { ...inputAttr } className = { isError ? 'error' : null } />
             {
                 isError &&
-                <span className = 'field__error-msg'>{error}</span>
+                <Typography as = 'span' color = 'var(--errorColor)' size = 'caption' >{error}</Typography>
             }
         </label>
     );
 };
 
-Input.propTypes = {
-    containerClassName: PropTypes.string,
-    whiteMode:          PropTypes.bool,
-};
+const Input = styled(InputContainer)`
+    input {
+        width: 100%;
+        padding: 5px 10px;
 
-Input.defaultProps = {
-    containerClassName: '',
-    inputClassName:     '',
-    type:               'text',
-    whiteMode:          false,
-};
+        font-size: var(--fontSizeInput);
+
+        outline: none;
+        border-radius: 3px;
+        border: 1px solid var(--BlueBell);
+        
+        &.error {
+            border: 1px solid var(--errorColor);
+        }
+    }
+    
+`;
 
 export default Input;

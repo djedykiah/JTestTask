@@ -1,47 +1,60 @@
+//Core
 import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import ReactTextarea from 'react-textarea-autosize';
 
-const Textarea = ({
-    input, disabled,
+//Styles
+import styled from 'styled-components';
+
+//Components
+import { Typography } from 'components';
+
+const TextareaContainer = ({
+    className,
+    input,
+    disabled,
     meta: { touched, error },
-    placeholder, containerClassName, inputClassName, whiteMode,
+    placeholder,
 }) => {
 
-    const inputAttr = { ...input, placeholder, disabled, className: `field__body ${inputClassName}` };
+    const inputAttr = { ...input, placeholder, disabled };
 
     const isError = touched && error;
-    const isValid = touched && !error;
+
+    const errorClassName = isError ? 'error' : null;
 
     return (
         <label
-            className = { classNames(`field field--textarea ${containerClassName}`, {
-                'field--white': whiteMode,
-            }) }>
+            className = { className }>
             <ReactTextarea
                 { ...inputAttr }
+                className = { errorClassName }
+                minRows = { 4 }
             />
             {
                 isError &&
-                <span className = 'field__error-msg'>{error}</span>
+                <Typography as = 'span' color = 'var(--errorColor)' size = 'caption' >{error}</Typography>
             }
         </label>
     );
 };
 
-Textarea.propTypes = {
-    containerClassName: PropTypes.string,
-    disabled:           PropTypes.bool,
-    inputClassName:     PropTypes.string,
-    placeholder:        PropTypes.string,
-    whiteMode:          PropTypes.bool,
-};
+const Textarea = styled(TextareaContainer)`
+    textarea {
+        width: 100%;
+        padding: 5px 10px;
+        height: 70px;
+        resize: none;
 
-Textarea.defaultProps = {
-    containerClassName: '',
-    inputClassName:     '',
-    whiteMode:          false,
-};
+        font-size: var(--fontSizeInput);
+
+        outline: none;
+        border-radius: 3px;
+        border: 1px solid var(--BlueBell);
+        &.error {
+            border: 1px solid var(--errorColor);
+        }
+    }
+    
+`;
 
 export default Textarea;

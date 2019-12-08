@@ -9,12 +9,18 @@ export const Typography = styled.p`
     text-transform: ${(props) => props.uppercase ? 'uppercase' : ''};
     font-size: ${({ size }) =>
         ({
+            h1:      'var(--fontSizeH1)',
+            h2:      'var(--fontSizeH2)',
+            h3:      'var(--fontSizeH2)',
             plain:   'var(--fontSizePlain)',
             caption: 'var(--fontSizeCaption)',
             input:   'var(--fontSizeInput)',
         }[size])};
     line-height: ${({ size }) =>
         ({
+            h1:      'var(--lineHeightH1)',
+            h2:      'var(--lineHeightH2)',
+            h3:      'var(--lineHeightH2)',
             plain:   'var(--lineHeightPlain)',
             caption: 'var(--lineHeightCaption)',
             input:   'var(--lineHeightInput)',

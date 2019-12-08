@@ -5,18 +5,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-// Route
-import { Private, Public } from '../navigation';
-
-// Actions
-import { initializeAsync } from '../store/reducers/ui/actions';
-
-// Components
-import { Loading } from '../components';
-import ModalContainer from '../components/Modals/ModalContainer.js';
-
 // Styles
 import 'antd/dist/antd.css';
+
+// Route
+import { Public } from 'navigation';
+
+// Actions
+import { initializeAsync } from 'store/reducers/ui/actions';
+
+// Components
+import { Loading } from 'components';
+import ModalContainer from 'components/Modals/ModalContainer';
 
 const mapStateToProps = (state) => ({
     isInitialized: state.ui.get('isInitialized'),
@@ -42,7 +42,6 @@ class App extends Component {
 
     render () {
         const {
-            isAuthenticated,
             isInitialized,
         } = this.props;
 

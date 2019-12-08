@@ -1,8 +1,24 @@
+//Core
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
+import { Button } from 'antd';
 
-export default class Wizard extends React.Component {
+//Styles
+import styled from 'styled-components';
+
+//Components
+import { Typography } from 'components';
+
+const mapStateToProps = (state) => {
+    return {
+        type: state.modal.get('type'),
+    };
+};
+
+@connect(mapStateToProps)
+class WizardContainer extends React.Component {
   static propTypes = {
       onSubmit: PropTypes.func.isRequired,
   }
@@ -47,7 +63,8 @@ export default class Wizard extends React.Component {
   }
 
   render () {
-      const { children } = this.props;
+      const { children, className, type } = this.props;
+      const text = type === 'MODAL_EDIT' ? 'Edit' : 'Create';
       const { page, values } = this.state;
       const activePage = React.Children.toArray(children)[page];
       const isLastPage = page === React.Children.count(children) - 1;
@@ -58,26 +75,56 @@ export default class Wizard extends React.Component {
               validate = { this.validate }
               onSubmit = { this.handleSubmit }>
               {({ handleSubmit, submitting, values }) => (
-                  <form onSubmit = { handleSubmit }>
+                  <form className = { className } onSubmit = { handleSubmit } >
+                      <Typography size = 'h3'>
+                          {text} medicine {page + 1} / 2
+                      </Typography>
                       {activePage}
+                      <br />
                       <div className = 'buttons'>
                           {page > 0 && (
-                              <button type = 'button' onClick = { this.previous }>
-                  « Previous
-                              </button>
+                              <Button onClick = { this.previous }>
+                                Previous
+                              </Button>
                           )}
-                          {!isLastPage && <button type = 'submit'>Next »</button>}
+                          {!isLastPage && (
+                              <Button htmlType = 'submit' type = 'primary'>
+                                Next
+                              </Button>
+                          )}
                           {isLastPage && (
-                              <button type = 'submit'disabled = { submitting }>
-                  Submit
-                              </button>
+                              <>
+                                  {' '}
+                                  <Button disabled = { submitting } htmlType = 'submit' >
+                                      {text}
+                                  </Button>
+                              </>
                           )}
                       </div>
-
-                      <pre>{JSON.stringify(values, 0, 2)}</pre>
                   </form>
               )}
           </Form>
       );
   }
 }
+
+const Wizard = styled(WizardContainer)`
+    padding: 20px;
+    button {
+        margin: 0 10px;
+    }
+    .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .input-group {
+        display: grid;
+        grid-template-columns: 30% 68%;
+        grid-column-gap: 2%;
+        margin-bottom: 20px;
+    }
+`;
+
+export default Wizard;
